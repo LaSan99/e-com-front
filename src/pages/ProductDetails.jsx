@@ -20,6 +20,7 @@ import {
   ChevronRightIcon,
 } from "@heroicons/react/24/outline";
 import ProductImage from "../components/ProductImage";
+import { BASE_URL } from "../config/config";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -127,21 +128,25 @@ const ProductDetails = () => {
     return null;
   }
 
-  const BACKEND_URL = "https://e-com-back-seven.vercel.app/";
+  // Add console logs to debug image URLs
+  console.log("Product data:", product);
+  console.log("Raw images:", product.images);
 
-  // Ensure we have a valid images array with proper URLs
-  const images = (product.images?.filter((img) => img) || []).map((img) =>
-    img.startsWith("http")
-      ? img
-      : `${BACKEND_URL}${img.startsWith("/") ? "" : "/"}${img}`
-  );
+  const images = (product.images?.filter((img) => img) || []).map((img) => {
+    const imageUrl = img.startsWith('http') 
+      ? img 
+      : `${BASE_URL}${img.startsWith('/') ? '' : '/'}${img}`;
+    console.log("Constructed image URL:", imageUrl);
+    return imageUrl;
+  });
+
+  console.log("Final images array:", images);
 
   if (images.length === 0 && product.image) {
-    const imageUrl = product.image.startsWith("http")
-      ? product.image
-      : `${BACKEND_URL}${product.image.startsWith("/") ? "" : "/"}${
-          product.image
-        }`;
+    const imageUrl = product.image.startsWith('http') 
+      ? product.image 
+      : `${BASE_URL}${product.image.startsWith('/') ? '' : '/'}${product.image}`;
+    console.log("Single image URL:", imageUrl);
     images.push(imageUrl);
   }
 
@@ -197,10 +202,11 @@ const ProductDetails = () => {
                       : "border-transparent hover:border-gray-300"
                   }`}
                 >
-                  <img
+                  <ProductImage
                     src={image}
                     alt={`${product.name} - Thumbnail ${index + 1}`}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full"
+                    objectFit="object-cover"
                   />
                   {currentImageIndex === index && (
                     <div className="absolute inset-0 bg-primary/10"></div>

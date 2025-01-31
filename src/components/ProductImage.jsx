@@ -13,13 +13,22 @@ const ProductImage = ({
   const [hasError, setHasError] = useState(false);
   const [isZoomed, setIsZoomed] = useState(false);
 
-  const imageUrl = src?.startsWith("http") ? src : `${BASE_URL}${src}`;
+  console.log("ProductImage src:", src);
+
+  const imageUrl = src?.startsWith("http") 
+    ? src 
+    : `${BASE_URL}${src?.startsWith("/") ? "" : "/"}${src}`;
+
+  console.log("ProductImage constructed URL:", imageUrl);
 
   const handleLoad = () => {
+    console.log("Image loaded successfully:", imageUrl);
     setIsLoading(false);
+    setHasError(false);
   };
 
   const handleError = () => {
+    console.error("Image failed to load:", imageUrl);
     setIsLoading(false);
     setHasError(true);
   };
