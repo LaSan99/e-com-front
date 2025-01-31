@@ -13,8 +13,7 @@ import {
   ShieldCheckIcon,
 } from "@heroicons/react/24/outline";
 import ProductImage from "../components/ProductImage";
-
-const BACKEND_URL = "https://e-com-back-5w4olaoq0-lasannavodya-gmailcoms-projects.vercel.app";
+import { BASE_URL } from "../config/config";
 
 const Home = () => {
   const dispatch = useDispatch();

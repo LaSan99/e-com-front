@@ -1,6 +1,5 @@
 import { useState } from "react";
-
-const BACKEND_URL = "https://e-com-back-5w4olaoq0-lasannavodya-gmailcoms-projects.vercel.app";
+import { BASE_URL } from "../config/config";
 
 const ProductImage = ({
   src,
@@ -14,7 +13,7 @@ const ProductImage = ({
   const [hasError, setHasError] = useState(false);
   const [isZoomed, setIsZoomed] = useState(false);
 
-  const imageUrl = src?.startsWith("http") ? src : `${BACKEND_URL}${src}`;
+  const imageUrl = src?.startsWith("http") ? src : `${BASE_URL}${src}`;
 
   const handleLoad = () => {
     setIsLoading(false);
