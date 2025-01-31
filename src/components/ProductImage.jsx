@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const BACKEND_URL = "https://e-com-back-seven.vercel.app/";
+const BACKEND_URL = "https://e-com-back-5w4olaoq0-lasannavodya-gmailcoms-projects.vercel.app";
 
 const ProductImage = ({
   src,

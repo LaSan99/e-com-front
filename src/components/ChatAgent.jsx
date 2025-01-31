@@ -49,7 +49,7 @@ const ChatAgent = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch("https://e-com-back-seven.vercel.app/api/chat", {
+      const response = await fetch("https://e-com-back-5w4olaoq0-lasannavodya-gmailcoms-projects.vercel.app/api/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

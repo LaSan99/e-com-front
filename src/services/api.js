@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://e-com-back-seven.vercel.app/api";
+const API_URL = "https://e-com-back-5w4olaoq0-lasannavodya-gmailcoms-projects.vercel.app/api";
 
 // Create axios instance with dynamic Content-Type
 const api = axios.create({
