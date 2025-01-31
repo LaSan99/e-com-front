@@ -4,6 +4,10 @@ import { API_URL } from "../config/config";
 // Create axios instance with dynamic Content-Type
 const api = axios.create({
   baseURL: API_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  withCredentials: true // Important for CORS with credentials
 });
 
 // Add token to requests if available
@@ -78,3 +82,14 @@ export const getCustomers = () => api.get("/users");
 export const updateCustomer = (id, userData) =>
   api.put(`/users/${id}`, userData);
 export const deleteCustomer = (id) => api.delete(`/users/${id}`);
+
+// Chat API
+export const sendChatMessage = async (message) => {
+  try {
+    const response = await api.post('/chat', { message });
+    return response.data;
+  } catch (error) {
+    console.error('Chat API error:', error);
+    throw error;
+  }
+};

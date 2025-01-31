@@ -5,6 +5,7 @@ import {
   XMarkIcon,
   MinusIcon,
 } from "@heroicons/react/24/outline";
+import { sendChatMessage } from "../services/api";
 
 const ChatAgent = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -39,51 +40,31 @@ const ChatAgent = () => {
     }
   }, []);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     if (!inputMessage.trim()) return;
 
-    const userMessage = { role: "user", content: inputMessage };
-    setMessages((prev) => [...prev, userMessage]);
-    setInputMessage("");
-    setIsLoading(true);
-
     try {
-      const response = await fetch("https://e-com-back-5w4olaoq0-lasannavodya-gmailcoms-projects.vercel.app/api/chat", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ message: inputMessage }),
-        credentials: "include",
-      });
+      setIsLoading(true);
+      const newMessage = { role: 'user', content: inputMessage };
+      setMessages(prev => [...prev, newMessage]);
+      setInputMessage('');
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Network response was not ok");
+      const response = await sendChatMessage(inputMessage);
+      
+      if (response && response.response) {
+        setMessages(prev => [...prev, { 
+          role: 'assistant', 
+          content: response.response 
+        }]);
       }
-
-      const data = await response.json();
-
-      if (data.error) {
-        throw new Error(data.error);
-      }
-
-      const assistantMessage = {
-        role: "assistant",
-        content: data.response.trim(),
-      };
-
-      setMessages((prev) => [...prev, assistantMessage]);
     } catch (error) {
-      console.error("Error sending message:", error);
-      const errorMessage = {
-        role: "assistant",
-        content:
-          error.message ||
-          "I apologize, but I'm having trouble connecting right now. Please try again in a moment.",
-      };
-      setMessages((prev) => [...prev, errorMessage]);
+      console.error('Chat error:', error);
+      // Show error message to user
+      setMessages(prev => [...prev, { 
+        role: 'assistant', 
+        content: 'Sorry, I encountered an error. Please try again later.' 
+      }]);
     } finally {
       setIsLoading(false);
     }
