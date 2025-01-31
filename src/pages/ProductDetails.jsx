@@ -127,7 +127,7 @@ const ProductDetails = () => {
     return null;
   }
 
-  const BACKEND_URL = "http://localhost:5000";
+  const BACKEND_URL = "https://e-com-back-seven.vercel.app/";
 
   // Ensure we have a valid images array with proper URLs
   const images = (product.images?.filter((img) => img) || []).map((img) =>

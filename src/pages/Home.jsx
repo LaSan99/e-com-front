@@ -14,7 +14,7 @@ import {
 } from "@heroicons/react/24/outline";
 import ProductImage from "../components/ProductImage";
 
-const BACKEND_URL = "http://localhost:5000";
+const BACKEND_URL = "https://e-com-back-seven.vercel.app/";
 
 const Home = () => {
   const dispatch = useDispatch();
