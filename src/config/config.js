@@ -1,2 +1,7 @@
-export const BASE_URL = "https://e-com-back-phi.vercel.app";
-export const API_URL = `${BASE_URL}/api`; 
+export const API_URL = process.env.NODE_ENV === 'production' 
+  ? 'https://e-com-back-phi.vercel.app/api'
+  : 'http://localhost:5000/api';
+
+export const BASE_URL = process.env.NODE_ENV === 'production'
+  ? 'https://e-com-back-phi.vercel.app'
+  : 'http://localhost:5000'; 
